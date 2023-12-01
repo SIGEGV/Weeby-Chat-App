@@ -3,7 +3,20 @@ import{Box, Container,Text} from '@chakra-ui/react'
 import Login from '../components/Authentication/Login'
 import Signup from '../components/Authentication/Signup'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+
 const Homepage = () => {
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (!userInfo) history.push("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
+
   return (
       <Container maxW='xl'>
              <Box 

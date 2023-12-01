@@ -26,7 +26,7 @@ const registerUser= asyncHandler( async(req,res)=>{
             name: user.name,
             email: user.email,
             pic: user.pic,
-            token: generateToken(user._id),
+            token: generateToken(user._id)
         });
     }else{
         res.status(400);
@@ -63,4 +63,18 @@ const authUser = asyncHandler(async (req, res) => {
   });
   
 
-module.exports={registerUser,authUser};
+// /api/users?search=name
+const allUsers = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const users = await Users.find(keyword).find({ _id: { $ne: req.user._id } });
+  res.send(users);
+});
+module.exports={registerUser,authUser,allUsers};
