@@ -58,7 +58,7 @@ const fetchChats = asyncHandler(async (req, res) => {
   try {
     Chat.find({ user: { $elemMatch: { $eq: req.user._id } } })
       .populate("user", "-password")
-      .populate("groupAdmin", "-password")
+      .populate("GroupAdmin", "-password")
       .populate("latestMessage")
       .sort({ updatedAt: -1 })
       .then(async (results) => {        /*this code segment retrieves the sender information
@@ -185,7 +185,7 @@ const addToGroup = asyncHandler(async (req, res) => {
     }
   )
     .populate("user", "-password")
-    .populate("groupAdmin", "-password");
+    .populate("GroupAdmin", "-password");
 
   if (!added) {
     res.status(404);
@@ -197,7 +197,7 @@ const addToGroup = asyncHandler(async (req, res) => {
 
 module.exports = {
   accessChat,
-  fetchChats,
+  fetchChats, 
   createGroupChat,
   renameGroup,
   addToGroup,

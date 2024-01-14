@@ -32,8 +32,11 @@ app.use("/api/messages", messageRoutes);
 // error handlers
 app.use(notFound);
 app.use(errorHandler);
-
-
+// app._router.stack.forEach(function(r){
+//     if (r.route && r.route.path){
+//       console.log(r.route.path)
+//     }
+//   })
 // Port 
 const PORT= process.env.PORT|| 5005;
 

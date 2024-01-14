@@ -1,28 +1,36 @@
 const asyncHandler = require("express-async-handler");
 const Message=require('../models/MessageModel') 
 const User=require("../models/UserModel")
+const Chat = require("../models/chatModel");
+
+//@description     Create New Message
+//@route           POST /api/messages/
+//@access          Protected
+
 const sendMessage =  asyncHandler(async(req,res)=>{
-       
+    console.log("hro")
     const {content, chatId} =req.body;
-    if(!content || !chatid){
+    if(!content || !chatId){
         console.log("Invalid Message Passed into Request");
         res.status(400);
     }
+    console.log("hello")
     var newMessage={
         sender:req.user._id, 
         content: content,
         chat: chatId,
     }
-
+    console.log("hello2")
     try {
         var message=await Message.create(newMessage);
         message= await message.populate("sender", "name pic");
-        message= await message.populate("chat:" );
+        message= await message.populate("chat" );
         message= await User.populate(message,{
-            path: "chat.users",
+            path: "chat.user",
             select: "name pic email",
         });
-        
+
+
         await Chat.findByIdAndUpdate(req.body.chatId,{
             latestMessage:message,
         });
@@ -34,6 +42,9 @@ const sendMessage =  asyncHandler(async(req,res)=>{
     }
 });
 
+//@description     Get all Messages
+//@route           GET /api/messages/:chatId
+//@access          Protected
 
 const allMessage=asyncHandler(async(req,res)=>{
      try {

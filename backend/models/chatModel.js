@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); // Import the Mongoose ODM for interacting with MongoDB databases
-
+const Users= require('./UserModel')
 
 const chatModel = mongoose.Schema({
     chatname: { type: String, trim: true }, // Field for chat's name with leading and trailing whitespace removed

@@ -12,7 +12,7 @@ const addToGroup=require("../controller/chatsController");
 
 
 router.route('/').post(protect,accessChats.accessChat);
-router.route('/').get(protect,fetchChats.fetchChats);
+router.route('/fetch').get(protect, fetchChats.fetchChats);
 router.route('/group').post(protect,createGroupChat.createGroupChat);
 router.route('/rename').put(protect,renameGroup.renameGroup);
 router.route('/groupremove').put(protect,removeFromGroup.removeFromGroup);
