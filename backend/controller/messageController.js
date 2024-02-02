@@ -8,19 +8,16 @@ const Chat = require("../models/chatModel");
 //@access          Protected
 
 const sendMessage =  asyncHandler(async(req,res)=>{
-    console.log("hro")
     const {content, chatId} =req.body;
     if(!content || !chatId){
         console.log("Invalid Message Passed into Request");
         res.status(400);
     }
-    console.log("hello")
     var newMessage={
         sender:req.user._id, 
         content: content,
         chat: chatId,
     }
-    console.log("hello2")
     try {
         var message=await Message.create(newMessage);
         message= await message.populate("sender", "name pic");
