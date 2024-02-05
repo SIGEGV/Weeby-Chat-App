@@ -2,7 +2,7 @@ import { Avatar } from "@chakra-ui/avatar";
 import { Box, Text } from "@chakra-ui/layout";
 
 
-const UserListItem = ( user ,handleFunction ) => {
+const UserListItem = ( {user ,handleFunction} ) => {
 
 
   return (
@@ -11,16 +11,17 @@ const UserListItem = ( user ,handleFunction ) => {
       cursor="pointer"
       bg="#E8E8E8"
       _hover={{
-        background: "#38B2AC",
+        background: "	#0097ff",
         color: "white",
       }}
       w="100%"
       d="flex"
       alignItems="center"
       color="black"
+      top="10%"
       px={3}
       py={2}
-      mb={2}
+      mb={1}
       borderRadius="lg"
     >
       <Avatar
@@ -30,6 +31,7 @@ const UserListItem = ( user ,handleFunction ) => {
         name={user.name}
         src={user.pic}
       />
+
       <Box>
         <Text>{user.name}</Text>
         <Text fontSize="xs">
@@ -37,6 +39,7 @@ const UserListItem = ( user ,handleFunction ) => {
           {user.email}
         </Text>
       </Box>
+
     </Box>
   );
 };

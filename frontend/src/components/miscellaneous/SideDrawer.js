@@ -1,4 +1,5 @@
-import { Box, Button, Tooltip,Text, Menu, MenuButton, Avatar, MenuList, MenuItem, Input, useToast} from '@chakra-ui/react';
+import { Box, Button, Tooltip,Text, Menu, MenuButton, Avatar, MenuList, MenuItem, Input, useToast, Spinner} from '@chakra-ui/react';
+import './drawer.css'
 import {
    Drawer,
    DrawerBody,
@@ -17,13 +18,14 @@ import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
 
+
 const SideDrawer = () => {
   const [search, setSearch] = useState("")  
-  const [searchResult , setsearchResult]=useState([]);
+  const [searchResult , setsearchResult]=useState();
   const [Loading, setLoading] = useState();
   const [loadingChat, setLoadingChat] = useState();
   const navigate=useNavigate();
-  const {user}=ChatState()
+  const {user,setSelectedChat,chats, setChats}=ChatState()
 
    
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,7 +38,7 @@ const SideDrawer = () => {
       localStorage.removeItem("userInfo");
       navigate("/")
    }
-   const accessChat=(UserId)=>{
+   const accessChat=async(userId)=>{
        try{
        setLoadingChat(true);
        const config={
@@ -45,57 +47,73 @@ const SideDrawer = () => {
             Authorization:`Bearer ${user.token}`,
          },
       };
-
-
+        const {data}= await axios.post('/api/chat',{userId},config);
+        if(!chats.find((c)=>c._id)) setChats([data, ...chats]);
+        setSelectedChat(data);
+        setLoadingChat(false);
+        onClose()
        }
-       catch{
-
-       }
-   }
-
-   const handleSearch= async()=>{
-      if(!search){
+       catch(error){
          toast({
-            title:"Enter the name of the user ",
-            status:"warning",
+            title:"Error Fetching the chats ",
+            description: error.message,
+            status:"error",
             duration:5000,
             isClosable:true,
-            position:"top-left",
-         });
-         return;
-      }
-         try {
-            setLoading(true);
-            const config={
-               headers:{
-                  Authorization:`Bearer ${user.token}`,
-               },
-            };
-            const {data}= await axios.get(`/api/user?search=${user.token}`,config)
-            console.log(data);
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            setLoading(false);
-            setsearchResult(data);
-         } catch (error) {
-            toast({
-               title:"Error Occoured ",
-               description: "Failed to Load the Search Result",
-               status:"error",
-               duration:5000,
-               isClosable:true,
-               position:"bottom-left",
-            })
-         }finally{
-            setLoading(false);
-         }
+            position:"bottom-left",
+         })
+       }
    }
+
+   const handleSearch = async () => {
+      if (!search) {
+        toast({
+          title: "Enter the name of the user",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "top-left",
+        });
+        return;
+      }
+  
+      setLoading(true); 
+  
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const { data } = await axios.get(`/api/user?search=${search}`, config);
+  
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        setsearchResult(data);
+
+      } catch (error) {
+        console.error("Error Occurred:", error);
+        toast({
+          title: "Error Occurred",
+          description: "Failed to load the search result",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+  
  return(
    <>
   <Box
-  d="flex" 
+  display="flex" 
   justifyContent='space-between'
   background={"#74ccf4 "}
   w="100%"
+  margin={"auto"}
   p="0px 0px 0px 0px "
    borderRadius={"1px"} >
      <Tooltip label="Search User to Chat" hasArrow placement='bottom-end'>
@@ -123,7 +141,7 @@ const SideDrawer = () => {
        </Menu>
         </div>
   </Box>
-  <Drawer
+  <Drawer className="drawer"
         isOpen={isOpen}
         placement='left'
         onClose={onClose}
@@ -131,29 +149,34 @@ const SideDrawer = () => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader left="17.5%%">Search User</DrawerHeader>
-          <DrawerBody >
-          <DrawerCloseButton  top={"7%"}  right={"2%"}/>
-            <Box position="relative" top="6%" left="0%">
+          <DrawerHeader className='drawer-header'>Search User</DrawerHeader>
+          <DrawerBody className='drawer-body '>
               <Input
+              className='drawer-input'
+              position={"relative"}
+              top={"5vh"}
                left="-6%"
                  placeholder="Username"
                  value={search}
-                 onChange={(e)=>setSearch(e.target.value)}
-                 />
-                   <Button left={"63%"} backgroundColor={"#00d8ff"} onClick={handleSearch}>
+                 onChange={(e)=>setSearch(e.target.value)}/>
+
+                  <Button className="drawer-button" left={"63%"} backgroundColor={"#00d8ff"} onClick={handleSearch} top={"6%"}>
                       Search 
                  </Button>
-                 {Loading ? <ChatLoading style={{ position: 'absolute', top: '10%', left: 0, right:0}} /> : (
+
+                 <div className='skeleton'>
+                 {Loading ? <ChatLoading /> : (
                   searchResult?.map((user)=>(
                      <UserListItem
+                        top={"50%"}
                         key={user._id}
                         user={user}
-                        handleFunction={()=> accessChat(user.id)}
+                        handleFunction={()=> accessChat(user._id)}
                      />
                   )))
                  }
-            </Box>
+                </div>
+                  {loadingChat && <Spinner className='spinner'/>}      
               </DrawerBody>
         </DrawerContent>
       </Drawer>

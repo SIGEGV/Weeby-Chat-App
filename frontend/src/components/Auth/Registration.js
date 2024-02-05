@@ -59,7 +59,6 @@ const submitHandler = async (e) => {
         },
         config
       );      
-      console.log(data);
       toast({
         title: "Registration Successful",
         status: "success",
@@ -83,46 +82,7 @@ const submitHandler = async (e) => {
     }
   };
 
-  const postDetails = (pics) => {
-    if (pics === undefined) {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
-    console.log(pics);
-      if (pics.type === "image/jpeg" || pics.type === "image/png") {
-      const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "sociopedia");
-      data.append("cloud_name", "dhnywnneh");
-      fetch("https://api-ap.cloudinary.com/v1_1/:dhnywnneh/:upload",
-       {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setPic(data.url.toString());
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      return;
-    }
-  };
+
  return (
    <div className='Signup-wrapper'>
        <form action=''>
@@ -143,9 +103,6 @@ const submitHandler = async (e) => {
               <input type="Password" placeholder='Confirm Password' onChange={(e)=>setConfirmpassword(e.target.value)} required/>
               <FaLock className='icon' />
             </div>
-           <div className="profile-picture"> 
-           <input type="file" onChange={(e) => postDetails(e.target.files[0])} accept="image/*"  />
-           </div>
                 <button type="Sign in" onClick={submitHandler}>Sign In</button>
              <div className="Register-Link">
                 <p>Already have an Account?<Link to="/">Login</Link></p>
