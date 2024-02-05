@@ -1,0 +1,61 @@
+
+/* Default styles */
+.drawer {
+    width: 300px; /* Set your desired default width */
+  }
+  
+  .drawer-header {
+    left: 16.5%; /* Default position */
+  }
+  
+  .drawer-body {
+    /* Add styles for the body */
+  }
+  
+  .drawer-close-button {
+    /* Add styles for the close button */
+  }
+  
+  .drawer-input {
+    /* Add styles for the input */
+  }  
+  .skeleton {
+    /* Add styles for the skeleton or loading animation */
+    position: relative;
+    top: 8%;
+  }
+  
+  .spinner {
+    /* Add styles for the spinner */
+    position: relative;
+    top: 10%;
+    left: 85%;
+  }
+  
+  .user-list-item {
+    /* Add styles for the user list item */
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .drawer {
+      width: 80%; /* Adjust the width for smaller screens */
+    }
+    
+    .drawer-header {
+      left: 50%; /* Adjust position for smaller screens */
+      transform: translateX(-50%);
+    }
+  
+    /* Add more media queries for other elements as needed */
+  }
+  
+  /* Media query for larger screens */
+  @media (min-width: 1200px) {
+    .drawer {
+      width: 400px; /* Adjust the width for larger screens */
+    }
+    
+    /* Add more media queries for other elements as needed */
+  }
+  

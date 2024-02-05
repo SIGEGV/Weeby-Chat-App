@@ -1,0 +1,58 @@
+.Card {
+    position: relative;
+    margin-top: 40px;
+    background-color: transparent;
+    backdrop-filter: blur(30px);
+    margin-left: -60%;
+    left: 20px; /* Adjust the left position as needed */
+    padding: 20px; 
+    border:2px solid rgba(255, 255, 255, .5);
+    border-radius: 10px; 
+    box-shadow: 0 0 100px rgba(0, 0, 0 ,.5);
+    height: 90vh;
+  }
+  
+  .Card-Body {
+    padding: 20px; 
+  }
+  
+  .Card-Body .Text {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-style: "Works sans";
+    font-size: large;
+  }
+  
+  .Card-Body .Text .Button {
+    background-color: #00b7fae6; /* Set the background color */
+    left: 10%;
+    color: black; /* Set the text color */
+    padding: 10px 20px; /* Add padding to the button */
+    border: none; /* Remove border */
+    border-radius: 190px; /* Add border radius */
+    cursor: pointer; /* Add cursor pointer */
+  }
+  
+  .Card-Body .Text .Button svg {
+    margin-left: 5px; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .Card {
+      position: static; /* Remove positioning */
+      top: auto; /* Remove top positioning */
+      left: auto; /* Remove left positioning */
+      margin: 20px auto; /* Center the card horizontally */
+      padding: 20px; /* Adjust padding */
+      border-radius: 8px; /* Keep border radius */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Keep box shadow */
+      height: auto; /* Remove fixed height */
+    }
+  
+    .Card-Body {
+      padding: 10px; /* Reduce padding for smaller screens */
+    }
+  }
+  
