@@ -1,6 +1,7 @@
 // imports
 const express=require("express");
 const {chats}= require("./data/data")
+var cors = require('cors')
 const dotenv=require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes=require("./routes/userRoutes")
@@ -21,10 +22,7 @@ app.get('/', (req,res)=>{
     res.send("api is running");
 });
 
-app.get("/api/chat",(req,res)=>{
-      res.send(chats)
-});
-
+app.use(cors())
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/messages", messageRoutes);
