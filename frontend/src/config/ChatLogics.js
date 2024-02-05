@@ -1,4 +1,4 @@
-const getSender=(loggedUser, users)=>{
-    return  users[0]._id === loggedUser._id? users[1].name : users[0].name;
+const getSender=(loggedUser, user)=>{
+    return  user[0]._id === loggedUser._id? user[1].name : user[0].name;
 }
 export default getSender;

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { IoMdAdd } from "react-icons/io";
 import './style/contacts.css'
 import ChatLoading from './ChatLoading'
-import getSender from '../config/ChatLogics'
+import getSender from '../config/ChatLogics';
 const Contacts = () => {
   const [loggedUser, setLoggedUser] = useState();
   const {user,setSelectedChat,SelectedChat,chats, setChats}=ChatState();
@@ -39,7 +39,7 @@ const fetchChats= async()=>{
        }, [])
    
   return (
-<Card className='Card'>
+<Card Class='Card'>
   <CardBody className='Card-Body'>
      <Text className='Text'>
        My Chats
