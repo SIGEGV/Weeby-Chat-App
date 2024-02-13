@@ -6,9 +6,12 @@ import { IoMdAdd } from "react-icons/io";
 import './style/contacts.css'
 import ChatLoading from './ChatLoading'
 import getSender from '../config/ChatLogics';
-const Contacts = () => {
+import GroupChatModal from './miscellaneous/GroupChatModal';
+
+const Contacts = (fetchAgain) => {
   const [loggedUser, setLoggedUser] = useState();
-  const {user,setSelectedChat,SelectedChat,chats, setChats}=ChatState();
+   const [loading, setLoading] = useState(false)
+  const {user,setSelectedChat,selectedChat,chats, setChats}=ChatState();
   const toast=useToast();
 
 const fetchChats= async()=>{
@@ -19,8 +22,9 @@ const fetchChats= async()=>{
       }
     }
     const {data}=await axios.get("/api/chat/fetch",config);
-    console.log(data)
+    // console.log(data);
     setChats(data);
+    console.log(chats[0]);
   }
    catch (error) {
     toast({
@@ -35,15 +39,17 @@ const fetchChats= async()=>{
 };
    useEffect(() => {
      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-      fetchChats();
-       }, [])
+      fetchChats();    
+       }, [fetchAgain]);
    
   return (
 <Card Class='Card'>
   <CardBody className='Card-Body'>
      <Text className='Text'>
        My Chats
-      <Button className='Button'>New Group Chat<IoMdAdd/></Button>
+       <GroupChatModal>
+      <Button className='Button'>New group<IoMdAdd/></Button>
+      </GroupChatModal>
       </Text>
       <Box 
       d="flex"
@@ -54,26 +60,36 @@ const fetchChats= async()=>{
       h="100%"
       borderRadius="lg"
       overflowY="hidden">
-         { chats?( 
-              <Stack overflow={"scroll"}>
+       {chats ? (
+              <Stack >
                 {chats.map((chat) => (
                   <Box
-                   onClick={() => setSelectedChat(chat)}
-                  cursor="pointer"
-                  className='My-Chats'
-                  bg={SelectedChat === chat ? "#7CB9E8" : "#7CB9E8"}
-                  color={SelectedChat === chat ? "white" : "black"}
+                  onClick={() => setSelectedChat(chat)}
+                  cursor="pointer"                
+                  bg={'transparent'}
+                  border={"2px"}
+                  borderColor={'rgba(255, 255, 255, 0.502)'}
+                  borderStyle={"solid"}
                   px={1}
                   py={2}
                   borderRadius="lg"
-                  key={chat._id}>
-                    <Text>
+                  key={chat._id}
+                  >
+                      <Text>
                       {!chat.isGroupChat 
                                  ? getSender(loggedUser,chat.user)
                                 : chat.chatname}
-
-                    </Text>
+                      </Text>
+                      {chat.latestMessage && (
+                  <Text fontSize="xs">
+                    <b>{chat.latestMessage.sender.name} : </b>
+                    {chat.latestMessage.content.length > 50
+                      ? chat.latestMessage.content.substring(0, 51) + "..."
+                      : chat.latestMessage.content}
+                  </Text>
+                      )}
                   </Box>
+
                 ))}
               </Stack>
          ):(
@@ -86,4 +102,4 @@ const fetchChats= async()=>{
   
   )};
 
-export default Contacts
+export default Contacts;

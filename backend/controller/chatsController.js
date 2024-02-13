@@ -52,7 +52,7 @@ const accessChat = asyncHandler(async (req, res) => {
 });
 
 //@description     Fetch all chats for a user
-//@route           GET /api/chat/
+//@route           GET /api/chat/fetch
 //@access          Protected
 const fetchChats = asyncHandler(async (req, res) => {
   try {
@@ -96,7 +96,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
 
   try {
     const groupChat = await Chat.create({
-      chatName: req.body.name,
+      chatname: req.body.name,
       user: user,
       isGroupChat: true,
       GroupAdmin: req.user,     // the one who is creating a group is the group admin 
@@ -104,7 +104,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
 
     const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
       .populate("user", "-password")
-      .populate("GroupAdmin", "-password");
+      .populate("GroupAdmin", "-password")
 
     res.status(200).json(fullGroupChat);
   } catch (error) {

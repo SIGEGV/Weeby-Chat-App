@@ -1,5 +1,4 @@
- import React, { useState } from 'react'
- import {Box} from '@chakra-ui/react'
+import React, { useContext, useState } from 'react'
 import { ChatState } from '../components/Context/ChatProvider'
 import SideDrawer from '../components/miscellaneous/SideDrawer'
 import Contacts from '../components/Contacts'
@@ -17,9 +16,9 @@ return (
   
       {user && <Contacts fetchAgain={fetchAgain} />}
 
-      {/* {user && (
+      {user && (
         <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
-      )} */}
+      )}
 </>
 )};
 

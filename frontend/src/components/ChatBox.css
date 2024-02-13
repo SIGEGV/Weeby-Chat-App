@@ -1,0 +1,16 @@
+.ChatBoxrd{
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    margin-top: 40px;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.502);
+    backdrop-filter: blur(20px);
+    left: 35%; /* Adjust the left position as needed */
+    width: 100vh;
+    padding: 20px; 
+    border:2px solid rgba(255, 255, 255, 0.502);
+    border-radius: 10px; 
+    box-shadow: 0 0 100px rgba(0, 0, 0 ,.5);
+    height: 90vh;
+}
