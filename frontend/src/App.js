@@ -15,7 +15,7 @@ function App() {
       <Route exact path ="/chat" Component={Chatpage}/>
       <Route exact path ="/Registration" Component={Registration}/>
       <Route exact path ="/Profile" Component={Profile}/>
-
+      
      </Routes>     
      </div>
   );

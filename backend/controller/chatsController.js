@@ -122,7 +122,7 @@ const renameGroup = asyncHandler(async (req, res) => {
   const updatedChat = await Chat.findByIdAndUpdate(
     chatId,
     {
-      chatName: chatName,
+      chatname: chatName,
     },
     {
       new: true,    // if not given this func will return the old value(old name of the chat)
@@ -145,25 +145,36 @@ const renameGroup = asyncHandler(async (req, res) => {
 const removeFromGroup = asyncHandler(async (req, res) => {
   const { chatId, userId } = req.body;
 
-  // check if the requester is admin
-
-  const removed = await Chat.findByIdAndUpdate(
-    chatId,
-    {
-      $pull: { user: userId },
-    },
-    {
-      new: true,
+  try {
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
-  )
-    .populate("user", "-password")
-    .populate("GroupAdmin", "-password");
 
-  if (!removed) {
-    res.status(404);
-    throw new Error("Chat Not Found");
-  } else {
-    res.json(removed);
+    // Check if the chat exists
+    const chat = await Chat.findById(chatId);
+    if (!chat) {
+      return res.status(404).json({ error: 'Chat not found' });
+    }
+
+    // Check if the user is a member of the chat
+    const isMember = chat.user.includes(userId);
+    if (!isMember) {
+      return res.status(400).json({ error: 'User is not a member of the chat' });
+    }
+
+    // Remove the user from the chat
+    chat.user.pull(userId);
+    await chat.save();
+
+    // Fetch the updated chat data after removing the user
+    const updatedChat = await Chat.findById(chatId).populate('user', '-password').populate('GroupAdmin', '-password');
+
+    res.json(updatedChat);
+  } catch (error) {
+    console.error('Error removing user from chat:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

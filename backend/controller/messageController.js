@@ -4,7 +4,7 @@ const User=require("../models/UserModel")
 const Chat = require("../models/chatModel");
 
 //@description     Create New Message
-//@route           POST /api/messages/
+//@route           POST /api/messages/send
 //@access          Protected
 
 const sendMessage =  asyncHandler(async(req,res)=>{

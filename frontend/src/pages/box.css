@@ -1,9 +1,0 @@
-.box{
-    /* justifyContent="space-between" w="10%" marginLeft={"6%"} marginTop={"0vh"} h="91.5vh" p="10px" */
-    justify-content:space-between;
-    width: 10%;
-    margin-top: -1%;
-    margin-left: 10%;
-    height: 91.5vh;
-    padding: 10px;
-}

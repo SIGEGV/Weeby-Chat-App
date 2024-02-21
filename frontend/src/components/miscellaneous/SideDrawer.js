@@ -6,7 +6,6 @@ import {
    DrawerHeader,
    DrawerOverlay,
    DrawerContent,
-   DrawerCloseButton,
  } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { RiUserSearchFill } from "react-icons/ri";
@@ -17,6 +16,8 @@ import{useDisclosure} from '@chakra-ui/hooks'
 import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
+import Profile from './Profile';
+import getSender from '../../config/ChatLogics';
 
 
 const SideDrawer = () => {
@@ -25,7 +26,7 @@ const SideDrawer = () => {
   const [Loading, setLoading] = useState();
   const [loadingChat, setLoadingChat] = useState();
   const navigate=useNavigate();
-  const {user,setSelectedChat,chats, setChats}=ChatState()
+  const {user,setSelectedChat,chats, setChats, notification, setNotification}=ChatState()
 
    
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -135,7 +136,9 @@ const SideDrawer = () => {
               <Avatar size={"sm"} cursor={'pointer'} name={user.name} src={user.pic}></Avatar>
            </MenuButton>
            <MenuList>
-             <MenuItem><Link to='/Profile' >My Profile</Link></MenuItem>
+           <Profile user={user}>
+                <MenuItem>My Profile</MenuItem>{" "}
+              </Profile>
              <MenuItem onClick={logouthandler}>Logout </MenuItem>
            </MenuList>
        </Menu>

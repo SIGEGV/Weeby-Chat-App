@@ -10,8 +10,7 @@ import GroupChatModal from './miscellaneous/GroupChatModal';
 
 const Contacts = (fetchAgain) => {
   const [loggedUser, setLoggedUser] = useState();
-   const [loading, setLoading] = useState(false)
-  const {user,setSelectedChat,selectedChat,chats, setChats}=ChatState();
+  const {user,setSelectedChat,chats, setChats}=ChatState();
   const toast=useToast();
 
 const fetchChats= async()=>{
@@ -24,7 +23,6 @@ const fetchChats= async()=>{
     const {data}=await axios.get("/api/chat/fetch",config);
     // console.log(data);
     setChats(data);
-    console.log(chats[0]);
   }
    catch (error) {
     toast({
@@ -40,6 +38,7 @@ const fetchChats= async()=>{
    useEffect(() => {
      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
       fetchChats();    
+      // eslint-disable-next-line
        }, [fetchAgain]);
    
   return (
@@ -55,11 +54,12 @@ const fetchChats= async()=>{
       d="flex"
       flexDir="column"
       p={3}
-      bg="transparent"
+      // bg="transparent"
       w="100%"
       h="100%"
       borderRadius="lg"
-      overflowY="hidden">
+      overflowX={"hidden"}
+      overflowY={"auto"}>
        {chats ? (
               <Stack >
                 {chats.map((chat) => (
@@ -68,7 +68,8 @@ const fetchChats= async()=>{
                   cursor="pointer"                
                   bg={'transparent'}
                   border={"2px"}
-                  borderColor={'rgba(255, 255, 255, 0.502)'}
+                  borderColor={'Black'}
+                  color={"Black"}
                   borderStyle={"solid"}
                   px={1}
                   py={2}

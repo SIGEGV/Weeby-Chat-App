@@ -2,15 +2,16 @@
     position: relative;
     margin-top: 40px;
     background-color: "transparent";
-    color: rgba(255, 255, 255, 0.502);
+    color: rgba(85, 48, 124, 0.473);
     backdrop-filter: blur(20px);
     margin-left: 25%;
     left: -45%; /* Adjust the left position as needed */
     padding: 20px; 
     border:2px solid rgba(255, 255, 255, 0.502);
     border-radius: 10px; 
-    box-shadow: 0 0 100px rgba(0, 0, 0 ,.5);
+    box-shadow: 0 0 100px rgba(0, 0, 0 ,1);
     height: 90vh;
+    overflow-y: auto; 
   }
   
   .Card-Body {

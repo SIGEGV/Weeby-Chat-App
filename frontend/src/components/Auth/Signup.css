@@ -30,14 +30,14 @@
     background:transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid black;
     border-radius: 40px;
-    color: #fff;
+    color: black;
     padding: 15px 25px 15px 15px;
 }
 
 .input-box input::placeholder{
-    color:#fff;
+    color: black;
 
 }
 
@@ -58,7 +58,7 @@
     }
 
 .remember-forgot label input{
-    accent-color: #fff;
+    accent-color: black;
     margin-right: 2px;
 }
 
@@ -92,7 +92,7 @@
 }
 
 .Register-Link p a{
-      color:#fff;
+      color:#77B6A3;
       text-decoration: none;
       font-weight: 600;
 }

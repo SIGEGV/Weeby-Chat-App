@@ -1,5 +1,5 @@
 import React, { useEffect, useState }  from 'react'
-import { Button ,FormControl,Input,useDisclosure, useToast } from '@chakra-ui/react'
+import { Button ,FormControl,Input,useDisclosure, useToast} from '@chakra-ui/react'
 import {ChatState} from '../Context/ChatProvider'
 import './Modal.css'
 import {
