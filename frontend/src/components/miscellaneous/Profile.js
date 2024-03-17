@@ -1,4 +1,3 @@
-import { GrView } from "react-icons/gr";
 import {
   Modal,
   ModalOverlay,

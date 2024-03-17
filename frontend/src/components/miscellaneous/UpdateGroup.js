@@ -4,7 +4,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   Button,
@@ -13,7 +12,6 @@ import {
   Input,
   FormControl,
   Spinner,
-  Box,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { ChatState } from '../Context/ChatProvider';
@@ -205,26 +203,14 @@ const handleRemove = async (userToDelete) => {
 
   return (
     <>
-      <GrView onClick={onOpen} />
+      <GrView onClick={onOpen} style={{marginTop: "-4.6%",marginLeft: "95%"}}/>
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader
-            fontSize="35px"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent="center"
-          >
-            {selectedChat.chatname}
-          </ModalHeader>
-          <ModalBody d="flex" flexDir="column" alignItems="center">
-            {/* <Box>
-            {selectedChat && selectedChat.users && selectedChat.users.map((u)  => (
+          <ModalBody d="flex" flexDir="column" alignItems="center" height={"50%"}>
+            {selectedChat && selectedChat.user && selectedChat.user.map((user)  => (
                      <UserBadgeItem key={user._id} user={user} handleFunction={()=>handleRemove(user)} />
               ))}
-            </Box> */}
-
-            {/* need to change the group update modal in order to make a 1/3 grid to show the users */}
             <FormControl d="flex">
               <Input
                 placeholder="Chat Name"

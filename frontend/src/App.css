@@ -1,6 +1,6 @@
 .App {
     min-height: 100vh; /* Set minimum height to fill the viewport */
-    background-image: url('bg2.avif');
+    background-image: url('bg.jpg');
     background-size: cover; /* Cover the entire viewport */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat;

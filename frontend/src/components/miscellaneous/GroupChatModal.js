@@ -104,7 +104,7 @@ const GroupChatModal = ({children}) => {
             if(selectedUsers.includes(userToAdd)){
               toast({
                 title: "User Already Added",
-                description: "Failed to Load the Search Results",
+                description: "",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -132,7 +132,7 @@ const GroupChatModal = ({children}) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent Class="modal-content">
-          <ModalHeader Class="header">Create Group Chat</ModalHeader>
+          <ModalHeader Class="header"></ModalHeader>
           <ModalBody Class="Body">
             <FormControl>
                     <Input Class="input-field"

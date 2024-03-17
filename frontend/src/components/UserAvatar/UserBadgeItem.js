@@ -9,7 +9,7 @@ const UserBadgeItem = ({ user, handleFunction, admin }) => {
     onClick={handleFunction}
   >
     {user.name}
-    {admin === user._id && <span> (Admin)</span>}
+    {admin === user._id && <span> (Admin) </span>}   
     <IoClose Class="close-icon"/>
   </Badge>
   );

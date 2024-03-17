@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ChatState } from './Context/ChatProvider';
-import { Avatar, Box, FormControl, Input, Spacer, Spinner, Text, useToast } from '@chakra-ui/react';
+import { Avatar, Box, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/react';
 import {getSender, getUser} from '../config/ChatLogics';
-import Profile from './miscellaneous/Profile';
+import ChatProfile from './miscellaneous/ChatProfile';
 import UpdateGroup from './miscellaneous/UpdateGroup';
 import axios from 'axios';
 import Chats from './Chats';
@@ -14,23 +14,14 @@ var socket, selectedChatComapare;
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
       const {user, selectedChat,notification, setNotification  }=ChatState();
-      const [showProfile, setShowProfile] = useState(false);
-      const [showUpdateGroup, setShowUpdateGroup] = useState(false);
       const[messages,setMessages] =useState([]);
       const [loading, setLoading] = useState(false);
       const [typing, setTyping] = useState(false);
-      const [istyping, setIsTyping] = useState(false);
       const [otherUserTyping, setOtherUserTyping] = useState(false);
       const [newMessages, setNewMessages] = useState();
       const [socketConnected, setSocketConnected] = useState(false)
       const toast=useToast();
-     
-      const toggleProfile = () => {
-        setShowProfile(!showProfile);
-      };
-      const toggleUpdateGroup = () => {
-        setShowUpdateGroup(!showUpdateGroup);
-      };
+    
 
     const fetchMessages=async()=>{
       if(!selectedChat) return;
@@ -46,14 +37,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         setLoading(false);
         socket.emit('joinChat', selectedChat._id)
       } catch (error) {
-        toast({
-          title: "Error Occurred",
-          description: "Failed to Load the Messages",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom-left",
-        });
+        console.log("unable to fetch messages");
         setLoading(false); 
       }
     }
@@ -71,6 +55,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
      useEffect(() => {
        fetchMessages();
        selectedChatComapare=selectedChat;
+       // eslint-disable-next-line
      }, [selectedChat]
      )
 
@@ -87,7 +72,6 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         }
       })
      })
-     console.log(notification)
 
     const sendMessage=async(event)=>{
          if(event.key === 'Enter' && newMessages){
@@ -138,102 +122,87 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
           }, timerLength);
     }
 
-    return (
-      <Box position="relative" height="100%"  overflowX="hidden">
-        {selectedChat ? (
-          <>
-            <Box display={{ base: 'none', md: 'block' }}>
-              <Avatar size="sm" cursor="pointer" src={user.pic}></Avatar>
-            </Box>
-            <Text
-              size="xxl"
-              pb={3}
-              px={2}
-              w="100%"
-              fontFamily="Work sans"
-              color="black"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              marginTop={{ base: '0', md: '-4%' }}
-              marginLeft={{ base: '0', md: '5%' }}
-              onClick={selectedChat.isGroupChat?(toggleUpdateGroup):(toggleProfile)}
-              cursor="pointer"
-            >
-              {!selectedChat.isGroupChat ? (
-                <>
-                  {getSender(user, selectedChat.user)}
-                  <Spacer />
-                </>
-              ) : (
-                <>
-                  {selectedChat.chatname.toUpperCase()}
-                </>
-              )}
-            </Text>
-            {showProfile && (
-              <Box
-                position={{ base: 'absolute', md: 'static' }}
-                top={{ base: 'auto', md: '0' }}
-                right={{ base: 'auto', md: '5%' }}
-                marginTop={{ base: '0', md: '3vh' }}
-              >
-                <Profile user={getUser(user, selectedChat.user)} />
-              </Box>
-            )}
-            {showUpdateGroup && (
-              <Box
-                position={{ base: 'absolute', md: 'static' }}
-                top={{ base: 'auto', md: '0' }}
-                right={{ base: 'auto', md: '5%' }}
-                marginTop={{ base: '0', md: '3vh' }}
-              >
-                <UpdateGroup fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} fetchMessages={fetchMessages} />
-              </Box>
-            )}
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="flex-end"
-              p={3}
-              w="100%"
-              h={{ base: 'calc(100% - 10px)', md: 'calc(100% - 65px)' }}
-              color="black"
-              borderRadius="lg"
-            >
-              {loading ? (
-                <Spinner size="xl" margin="auto" />
-              ) : (
-                <Chats messages={messages} />
-              )}
-            </Box>
-            <FormControl position="absolute" bottom="0" width="100%">
-            {otherUserTyping && <div style={{ color: 'Green' }}>typing...</div>}   
-               <Input
-                variant="filled"
-                color="black"
-                placeholder="Type a message"
-                onChange={typingHandler}
-                value={newMessages}
-                onKeyDown={sendMessage}
-              />
-            </FormControl>
-          </>
-        ) : (
-          <Box
-            display="flex"
-            h="100%"
-            justifyContent="center"
-            alignContent="center"
+  return (
+    <Box position="relative" height="100%" overflowX="hidden">
+      {selectedChat ? (
+        <>
+          {/* Box containing the profile Picture */}
+          <Box display={{ base: 'none', md: 'block' }}>
+            <Avatar size="sm" cursor="pointer" src={user.pic}></Avatar>
+          </Box>
+          <Text
+            fontSize={{ base: "28px", md: "30px" }}
+            pb={3}
+            px={2}
+            w="100%"
+            fontFamily="Work sans"
+            d="flex"
+            justifyContent={{ base: "space-between" }}
             alignItems="center"
           >
-            <Text fontSize="3xl" pb={3} fontFamily="Work sans" color="black">
-              Click on a user to start chatting
-            </Text>
+            {messages && (
+              !selectedChat.isGroupChat ? (
+                <Box marginTop={{ base: "-5.5vh", md: "-5vh" }} marginLeft={{ base: "5vh", md: "5vh" }} fontSize={{ base: "l", md: "l" }} color={'black'} fontStyle={"Work sans"}>
+                  {getSender(user, selectedChat.user)}
+                  <ChatProfile
+                    user={getUser(user, selectedChat.users)}
+                  />
+                </Box>
+              ) : (
+                <Box marginTop={{ base: "-5.5vh", md: "-3.9vh" }} marginLeft={{ base: "5vh", md: "5vh" }} fontSize={{ base: "l", md: "l" }} color={'black'} fontStyle={"Work sans"}>
+                  {selectedChat.chatname.toUpperCase()}
+                  <UpdateGroup
+                    fetchMessages={fetchMessages}
+                    fetchAgain={fetchAgain}
+                    setFetchAgain={setFetchAgain}
+                  />
+                </Box>
+              )
+            )}
+          </Text>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="flex-end"
+            p={3}
+            w="100%"
+            h={{ base: 'calc(100% - 10px)', md: 'calc(100% - 65px)' }}
+            color="black"
+            borderRadius="lg"
+          >
+            {loading ? (
+              <Spinner size="xl" margin="auto" />
+            ) : (
+              <Chats messages={messages}/>
+            )}
           </Box>
-        )}
-      </Box>
-    );
-  };
-    
-export default SingleChat
+          <FormControl position="absolute" bottom="0" width="100%">
+            {otherUserTyping && <div style={{ color: 'Green' }}>typing...</div>}
+            <Input
+              variant="filled"
+              color="black"
+              placeholder="Type a message"
+              onChange={typingHandler}
+              value={newMessages}
+              onKeyDown={sendMessage}
+            />
+          </FormControl>
+        </>
+      ) : (
+        <Box
+          display="flex"
+          h="100%"
+          justifyContent="center"
+          alignContent="center"
+          alignItems="center"
+        >
+          <Text fontSize="3xl" pb={3} fontFamily="Work sans" color="black">
+            Click on a user to start chatting
+          </Text>
+        </Box>
+      )}
+    </Box>
+  );
+};
+
+export default SingleChat;

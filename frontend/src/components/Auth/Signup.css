@@ -18,11 +18,11 @@
 }
 
 .Signup-wrapper .input-box{
-    position: relative;
-    width: 100%;
-    height:45px;
-    margin: 30px 0;
-}
+        position: relative;
+        width: 95%;
+        margin: 30px auto; /* Centers the input box horizontally */
+        height: 45px;
+    }
 
 .input-box input{
     width: 100%;
@@ -72,27 +72,30 @@
 }
 
 .Signup-wrapper button{
-    width: 100% ;
-    height:45px ;
+    width: 50%;
+    position: relative;
+    height: 45px;
     background: #fff;
-    border:none;
+    border: none;
     outline: none;
+    margin: 10px 100px; /* Centers the button horizontally */
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0 ,.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
     color: #333;
-     font-weight: 700;
+    font-weight: 700;
 }
 
 .Signup-wrapper .Register-Link{
+    color: white;
     font-size: 14.5px;
     text-align: center;
     margin: 30px 0 15px;
 }
 
 .Register-Link p a{
-      color:#77B6A3;
+      color:black;
       text-decoration: none;
       font-weight: 600;
 }

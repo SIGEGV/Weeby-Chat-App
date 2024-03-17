@@ -137,7 +137,7 @@ const SideDrawer = () => {
            </MenuButton>
            <MenuList>
            <Profile user={user}>
-                <MenuItem>My Profile</MenuItem>{" "}
+                <MenuItem>My Profile</MenuItem>
               </Profile>
              <MenuItem onClick={logouthandler}>Logout </MenuItem>
            </MenuList>

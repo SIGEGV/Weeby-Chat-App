@@ -1,7 +1,18 @@
-.badge{
-    background-color: transparent;
-    backdrop-filter: blur(20px);
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-radius: 5%;
-    box-shadow: 0 0 100px rgba(0, 0, 0 ,.5);
-}
+.badge {
+    display: inline-flex; /* Display badges horizontally */
+    align-items: center; /* Center items vertically */
+    padding: 5px 10px;
+    margin-right: 5px; /* Add some margin between badges */
+    border-radius: 999px; /* Make the badge circular */
+    background-color: #3182ce; /* Default background color */
+    color: white;
+    white-space: nowrap; /* Prevent username from wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis for long usernames */
+  }
+  
+  .close-icon {
+    margin-left: 5px; /* Add margin between username and close icon */
+    cursor: pointer;
+  }
+  

@@ -80,9 +80,6 @@ const Login = () => {
                    <input type="Password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)} required/>
                    <FaLock className='icon'/>
               </div>
-              <div className='remember-forgot'>
-                 <label><input type="checkbox" />Remember me </label>
-              </div>
               <button type="submit" onClick={submitHandler}>Login</button>
               <div className="Register-Link">
                 <p>Dont't have an Account?<Link to="/Registration">Register</Link></p>
