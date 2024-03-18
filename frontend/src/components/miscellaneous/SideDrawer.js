@@ -11,13 +11,12 @@ import React, { useState } from 'react'
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaBell, FaChevronDown } from "react-icons/fa";
 import {ChatState} from '../Context/ChatProvider';
-import { Link , useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import{useDisclosure} from '@chakra-ui/hooks'
 import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
 import Profile from './Profile';
-import getSender from '../../config/ChatLogics';
 
 
 const SideDrawer = () => {
@@ -26,7 +25,7 @@ const SideDrawer = () => {
   const [Loading, setLoading] = useState();
   const [loadingChat, setLoadingChat] = useState();
   const navigate=useNavigate();
-  const {user,setSelectedChat,chats, setChats, notification, setNotification}=ChatState()
+  const {user,setSelectedChat,chats, setChats}=ChatState()
 
    
   const { isOpen, onOpen, onClose } = useDisclosure();

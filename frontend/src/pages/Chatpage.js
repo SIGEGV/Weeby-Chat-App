@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { ChatState } from '../components/Context/ChatProvider'
 import SideDrawer from '../components/miscellaneous/SideDrawer'
 import Contacts from '../components/Contacts'

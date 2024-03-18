@@ -9,7 +9,7 @@ import Chats from './Chats';
 import io from'socket.io-client'
 
 
-const ENDPOINT="http://localhost:5005";
+const ENDPOINT="https://sociopedia-cxr0.onrender.com";
 var socket, selectedChatComapare;
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
