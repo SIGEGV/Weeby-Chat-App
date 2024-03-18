@@ -30,7 +30,7 @@ app.use(express.json());   //The express.json() function is a middleware
 // --------------------------routes------------------------------- 
 
 app.use(cors({
-    origin: "https://weeby-chat.netlify.app"
+    origin: "https://main--weeby-chat.netlify.app/"
 }));
 
 app.use("/api/user", userRoutes);
