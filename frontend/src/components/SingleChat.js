@@ -128,7 +128,11 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         <>
           {/* Box containing the profile Picture */}
           <Box display={{ base: 'none', md: 'block' }}>
-            <Avatar size="sm" cursor="pointer" src={user.pic}></Avatar>
+          <Avatar 
+              size="sm" 
+              cursor="pointer" 
+              src={selectedChat.user[0]._id === user._id ? selectedChat.user[1].pic : selectedChat.user[0].pic}
+            />       
           </Box>
           <Text
             fontSize={{ base: "28px", md: "30px" }}
@@ -145,7 +149,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 <Box marginTop={{ base: "-5.5vh", md: "-5vh" }} marginLeft={{ base: "5vh", md: "5vh" }} fontSize={{ base: "l", md: "l" }} color={'black'} fontStyle={"Work sans"}>
                   {getSender(user, selectedChat.user)}
                   <ChatProfile
-                    user={getUser(user, selectedChat.users)}
+                    user={getUser(user, selectedChat.user)}
                   />
                 </Box>
               ) : (
