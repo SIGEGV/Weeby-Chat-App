@@ -28,6 +28,10 @@ app.use(express.json());   //The express.json() function is a middleware
 
 
 // --------------------------routes------------------------------- 
+app.get("/", (req, res) => {
+  res.send("API Running!");
+});
+
 
 app.use(cors({
     origin: "*"
