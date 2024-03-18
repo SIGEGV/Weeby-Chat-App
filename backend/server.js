@@ -29,10 +29,7 @@ app.use(express.json());   //The express.json() function is a middleware
 
 // --------------------------routes------------------------------- 
 
-app.use(cors({
-  origin: 'https://weeby-chat.netlify.app', // Replace with your Netlify frontend URL
-  credentials: true // If your backend sends cookies, set credentials to true
-}));
+app.use(cors())
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/messages", messageRoutes);
