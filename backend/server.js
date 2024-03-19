@@ -69,7 +69,7 @@ const server=app.listen(PORT, console.log(`server is running on ${PORT} `));
 // --------------------------Socket-Connection------------------------------
 
 const io = require("socket.io")(server, {
-    pingTimeout: 60000,
+    pingTimeout: 100000,
     cors: {
       origin: "https://weeby-chat.netlify.app",
     },
