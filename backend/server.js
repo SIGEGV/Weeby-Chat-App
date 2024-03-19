@@ -34,7 +34,9 @@ app.get("/", (req, res) => {
 
 
 app.use(cors({
-    origin: "*"
+    origin: ["https://weeby-chat.netlify.app"],
+    methods : ["POST", "GET"],
+    credentials: true
 }));
 
 app.use("/api/user", userRoutes);

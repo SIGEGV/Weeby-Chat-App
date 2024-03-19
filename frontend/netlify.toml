@@ -1,4 +1,0 @@
-[[redirects]]
-  from = "/api/*"
-  to = "https://sociopedia-eej9.onrender.com/" # Change to your server address/IP
-  status = 200
