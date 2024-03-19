@@ -1,0 +1,14 @@
+[[redirects]]
+  from = "/api/user/*"
+  to = "https://sociopedia-ygsd.onrender.com/api/user/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/chat/*"
+  to = "https://sociopedia-ygsd.onrender.com/api/chat/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/messages/*"
+  to = "https://sociopedia-ygsd.onrender.com/api/messages/:splat"
+  status = 200
