@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 
 app.use(cors({
-    origin: ["https://weeby-chat.netlify.app"],
+    origin: ["https://weeby.netlify.app"],
     methods : ["POST", "GET"],
     credentials: true
 }));
@@ -71,7 +71,7 @@ const server=app.listen(PORT, console.log(`server is running on ${PORT} `));
 const io = require("socket.io")(server, {
     pingTimeout: 100000,
     cors: {
-      origin: "https://weeby-chat.netlify.app",
+      origin: "https://weeby.netlify.app",
     },
   });
   
