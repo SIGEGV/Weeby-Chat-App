@@ -16,24 +16,33 @@ Check out the live demo: https://weeby.netlify.app
 
 
 # Technologies Used
-- Frontend: React.js, Socket.IO, Chakra UI
+- Frontend: React.js, Socket.IO, Chakra UI, Firebase
 - Backend: Node.js, Express.js, MongoDB
-- Deployment: Netlify (Frontend), Heroku (Backend)
+- Deployment: Netlify (Frontend), Render (Backend)
 # Installation
 To run this project locally, follow these steps:
 
 1. Clone the repository:
-https://github.com/SIGEGV/sociopedia
-Navigate to the project directory:
+    - https://github.com/SIGEGV/sociopedia
+    - Navigate to the project directory:
 
+2. Install dependencies(Frontend):
+    - npm install
+    - npm start
 
-2. Install dependencies:
-npm install
-npm start
-Open your browser and navigate to http://localhost:3000 to view the app.
+3. Install dependencies(Backend):
+    - npm install
+    - nodemon server.js
 
-Deployment
+4. Setting up Backend:
+     -In server.js go to line 36 and change it to app.use(cors()) and on line 74 update origin with your frontend local host url.
+     -In Backend  go to the .env file and set your Own environment variables.
 
+6. Setting up Frontend:
+    - Go to package.json and update the value of proxy to the local host url  of your backend.
+    - frontend/src/components/SingleChats  go to line 12 and update your  ENDPOINT to the backend local host.
+
+7. Deployment
 This project is deployed using Netlify for the frontend and Render for the backend. Automatic deployments are triggered on each commit to the main branch.
 
 Contributing
