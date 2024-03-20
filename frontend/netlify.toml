@@ -12,3 +12,9 @@
   from = "/api/messages/*"
   to = "https://sociopedia-ygsd.onrender.com/api/messages/:splat"
   status = 200
+
+  
+  [[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
