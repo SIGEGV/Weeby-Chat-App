@@ -35,8 +35,8 @@ To run this project locally, follow these steps:
     - nodemon server.js
 
 4. Setting up Backend:
-     -In server.js go to line 36 and change it to app.use(cors()) and on line 74 update origin with your frontend local host url.
-     -In Backend  go to the .env file and set your Own environment variables.
+     - In server.js go to line 36 and change it to app.use(cors()) and on line 74 update origin with your frontend local host url.
+     - In Backend  go to the .env file and set your Own environment variables.
 
 6. Setting up Frontend:
     - Go to package.json and update the value of proxy to the local host url  of your backend.
