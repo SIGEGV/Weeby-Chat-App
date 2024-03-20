@@ -146,7 +146,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
           >
             {messages && (
               !selectedChat.isGroupChat ? (
-                <Box marginTop={{ base: "-5.5vh", md: "-5vh" }} marginLeft={{ base: "5vh", md: "5vh" }} fontSize={{ base: "l", md: "l" }} color={'black'} fontStyle={"Work sans"}>
+                <Box marginTop={{ base: "-5.5vh", md: "-3.9vh" }} marginLeft={{ base: "5vh", md: "5vh" }} fontSize={{ base: "l", md: "l" }} color={'black'} fontStyle={"Work sans"}>
                   {getSender(user, selectedChat.user)}
                   <ChatProfile
                     user={getUser(user, selectedChat.user)}
