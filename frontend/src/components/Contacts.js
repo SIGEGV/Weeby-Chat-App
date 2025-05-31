@@ -5,7 +5,7 @@ import axios from 'axios';
 import { IoMdAdd } from "react-icons/io";
 import './style/contacts.css'
 import ChatLoading from './ChatLoading'
-import getSender from '../config/ChatLogics';Add commentMore actions
+import getSender from '../config/ChatLogics';
 import GroupChatModal from './miscellaneous/GroupChatModal';
 
 const Contacts = (fetchAgain) => {
