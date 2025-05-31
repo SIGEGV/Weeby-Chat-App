@@ -8,7 +8,7 @@ import ChatLoading from './ChatLoading'
 import getSender from '../config/ChatLogics';
 import GroupChatModal from './miscellaneous/GroupChatModal';
 
-const Contacts = (fetchAgain) => {
+const Contacts = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState();
   const {user,setSelectedChat,chats, setChats}=ChatState();
   const toast=useToast();
@@ -35,11 +35,10 @@ const fetchChats= async()=>{
     });
   }
 };
-   useEffect(() => {
-     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-      fetchChats();    
-      // eslint-disable-next-line
-       }, [fetchAgain]);
+useEffect(() => {
+  setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+  if (user) fetchChats();
+}, [fetchAgain, user]);
    
   return (
 <Card Class='Card'>
