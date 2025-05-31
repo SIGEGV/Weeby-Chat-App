@@ -8,37 +8,36 @@ import ChatLoading from './ChatLoading'
 import getSender from '../config/ChatLogics';
 import GroupChatModal from './miscellaneous/GroupChatModal';
 
-const Contacts = ({fetchAgain}) => {
+const Contacts = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
-  const {user,setSelectedChat,chats, setChats}=ChatState();
-  const toast=useToast();
+  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const toast = useToast();
 
-const fetchChats= async()=>{
-  try {
-    const config={
-      headers:{
-        Authorization: `Bearer ${user.token}`,
-      }
+  const fetchChats = useCallback(async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get("/api/chat/fetch", config);
+      setChats(data);
+    } catch (error) {
+      toast({
+        title: "Error Occurred",
+        description: "Failed to load the Chats",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
     }
-    const {data}=await axios.get("/api/chat/fetch",config);
-    // console.log(data);
-    setChats(data);
-  }
-   catch (error) {
-    toast({
-      title: "Error Occurred",
-      description: "Failed to load the Chats",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "bottom-left",
-    });
-  }
-};
-useEffect(() => {
-  setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-  if (user) fetchChats();
-}, [fetchAgain, user]);
+  }, [user, setChats, toast]);
+
+  useEffect(() => {
+    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    if (user) fetchChats();
+  }, [fetchAgain, user, fetchChats]);
    
   return (
 <Card Class='Card'>
